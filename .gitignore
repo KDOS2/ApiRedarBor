@@ -1,0 +1,26 @@
+# Build results
+bin/
+obj/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio cache
+.vs/
+
+# Rider cache (si aplica)
+.idea/
+
+# Logs
+*.log
+
+# Packages
+*.nupkg
+*.snupkg
+
+# EF Core migrations (opcional)
+# Migrations/ 
