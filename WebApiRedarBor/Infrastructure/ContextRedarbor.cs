@@ -12,7 +12,7 @@
         { }
 
         #region "Datasets"
-        public DbSet<EmployeEntity> employee { get; set; }
+        public DbSet<EmployeEntity> Employee { get; set; }
         #endregion
 
         #region DbContext overrides

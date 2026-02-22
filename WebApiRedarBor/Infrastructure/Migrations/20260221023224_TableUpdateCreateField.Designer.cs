@@ -4,6 +4,7 @@ using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ContextRedarbor))]
-    partial class ContextRedarborModelSnapshot : ModelSnapshot
+    [Migration("20260221023224_TableUpdateCreateField")]
+    partial class TableUpdateCreateField
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,18 +27,19 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entity.EmployeEntity", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<long>("CompanyId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("CompanyId");
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GetDate()");
 
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
@@ -43,47 +47,36 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)")
-                        .HasColumnName("Email");
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Fax")
                         .HasMaxLength(11)
-                        .HasColumnType("nvarchar(11)")
-                        .HasColumnName("Fax");
-
-                    b.Property<bool>("IsDelete")
-                        .HasColumnType("bit");
+                        .HasColumnType("nvarchar(11)");
 
                     b.Property<DateTime?>("LastLogin")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)")
-                        .HasColumnName("Name");
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)")
-                        .HasColumnName("Password");
+                        .HasColumnType("nvarchar(250)");
 
-                    b.Property<long>("PortalId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("PortalId");
+                    b.Property<int>("PortalId")
+                        .HasColumnType("int");
 
-                    b.Property<long>("RoleId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("RoleId");
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
 
                     b.Property<int>("StatusId")
-                        .HasColumnType("int")
-                        .HasColumnName("StatusId");
+                        .HasColumnType("int");
 
                     b.Property<string>("Telephone")
                         .HasMaxLength(11)
-                        .HasColumnType("nvarchar(11)")
-                        .HasColumnName("Telephone");
+                        .HasColumnType("nvarchar(11)");
 
                     b.Property<DateTime?>("UpdatedOn")
                         .HasColumnType("datetime2");
@@ -91,8 +84,7 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)")
-                        .HasColumnName("Username");
+                        .HasColumnType("nvarchar(250)");
 
                     b.HasKey("Id")
                         .HasName("PK_Employ");

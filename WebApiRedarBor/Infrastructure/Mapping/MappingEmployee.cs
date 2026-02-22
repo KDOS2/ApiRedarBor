@@ -1,5 +1,6 @@
 ﻿namespace Infrastructure.Mapping
 {
+    using Domain;
     using Domain.Entity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -8,54 +9,73 @@
     {
         public void Configure(EntityTypeBuilder<EmployeEntity> builder)
         {
-            builder.ToTable("MappingEmployee", "dbo");
-            builder.HasKey(e => e.id).HasName("PK_Employ");
-            builder.Property(e => e.id).HasColumnName("Id");
+            builder.ToTable("Employee", "dbo");
+            builder.HasKey(e => e.Id).HasName("PK_Employ");
+                   
 
-            builder.Property(e => e.companyId).HasColumnName("CompanyId");
-            builder.Property(e => e.companyId).IsRequired();
+            builder.Property(e => e.CompanyId)
+                   .HasConversion(v => v.Value, v => new CompanyId(v))
+                   .HasColumnName("CompanyId")
+                   .IsRequired();
 
-            builder.Property(e => e.portalId).HasColumnName("PortalId");
-            builder.Property(e => e.portalId).IsRequired();
 
-            builder.Property(e => e.roleId).HasColumnName("RoleId");
-            builder.Property(e => e.roleId).IsRequired();
+            builder.Property(e => e.PortalId)
+                   .HasConversion(v => v.Value, v => new PortalId(v))
+                   .HasColumnName("PortalId")
+                   .IsRequired();
 
-            builder.Property(e => e.statusId).HasColumnName("StatusId");
-            builder.Property(e => e.statusId).IsRequired();
+            builder.Property(e => e.RoleId)
+                   .HasConversion(v => v.Value, v => new RoleId(v))
+                   .HasColumnName("RoleId")
+                   .IsRequired();
 
-            builder.Property(e => e.username).HasColumnName("Username");
-            builder.Property(e => e.username).HasMaxLength(250);
-            builder.Property(e => e.username).IsRequired();
+            builder.Property(e => e.StatusId)
+                   .HasConversion(v => v.Value, v => new StatusId(v))
+                   .HasColumnName("StatusId")
+                   .IsRequired();
 
-            builder.Property(e => e.password).HasColumnName("Password");
-            builder.Property(e => e.password).HasMaxLength(250);
-            builder.Property(e => e.password).IsRequired();
+            builder.Property(e => e.Username)
+                   .HasConversion(v => v.Value, v => new Username(v))
+                   .HasColumnName("Username")
+                   .HasMaxLength(250)
+                   .IsRequired();
 
-            builder.Property(e => e.email).HasColumnName("Email");
-            builder.Property(e => e.email).HasMaxLength(200);
-            builder.Property(e => e.email).IsRequired();
+            builder.Property(e => e.Password)
+                   .HasConversion(v => v.Value, v => new Password(v))
+                   .HasColumnName("Password")
+                   .HasMaxLength(250)
+                   .IsRequired();
 
-            builder.Property(e => e.name).HasColumnName("Name");
-            builder.Property(e => e.name).HasMaxLength(250);
-            builder.Property(e => e.name).IsRequired(false);
+            builder.Property(e => e.Email)
+                   .HasConversion(v => v.Value, v => new Email(v))
+                   .HasColumnName("Email")
+                   .HasMaxLength(200)
+                   .IsRequired();
 
-            builder.Property(e => e.fax).HasColumnName("Fax");
-            builder.Property(e => e.fax).HasMaxLength(11);
-            builder.Property(e => e.fax).IsRequired(false);
+            builder.Property(e => e.Name)
+                   .HasConversion(v => v.Value, v => new Name(v))
+                   .HasColumnName("Name")
+                   .HasMaxLength(250)
+                   .IsRequired(false);
 
-            builder.Property(e => e.telephone).HasColumnName("Telephone");
-            builder.Property(e => e.telephone).HasMaxLength(11);
-            builder.Property(e => e.telephone).IsRequired(false);
+            builder.Property(e => e.Fax)
+                   .HasConversion(v => v.Value, v => new Fax(v))
+                   .HasColumnName("Fax")
+                   .HasMaxLength(11)
+                   .IsRequired(false);
 
-            builder.Property(e => e.createdOn).HasColumnName("CreatedOn");
-            builder.Property(e => e.telephone).HasDefaultValueSql("GetDate()");
+            builder.Property(e => e.Telephone)
+                   .HasConversion(v => v.Value, v => new Telephone(v))
+                   .HasColumnName("Telephone")
+                   .HasMaxLength(11)
+                   .IsRequired(false);
 
-            builder.Property(e => e.updatedOn).HasColumnName("UpdatedOn");
-            builder.Property(e => e.updatedOn).IsRequired(false);            
+            builder.Property(e => e.CreatedOn);
+            builder.Property(e => e.UpdatedOn).IsRequired(false);
+            builder.Property(e => e.DeletedOn).IsRequired(false);
+            builder.Property(e => e.LastLogin).IsRequired(false);
 
-            builder.Property(e => e.lastLogin).HasColumnName("LastLogin");
-            builder.Property(e => e.lastLogin).IsRequired(false);
+            
         }
     }
 }
