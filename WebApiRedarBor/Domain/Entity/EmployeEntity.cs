@@ -21,7 +21,21 @@
         public DateTime? DeletedOn { get; private set; }        
         public DateTime? LastLogin { get; private set; }
 
-        private EmployeEntity() { } //EF
+        private EmployeEntity()
+        {
+            CompanyId = default!;
+            PortalId = default!;
+            RoleId = default!;
+            StatusId = default!;
+            Username = default!;
+            Email = default!;
+            Password = default!;
+            Name = default!;
+            Fax = default!;
+            Telephone = default!;
+            CreatedOn = default;
+            IsDelete = false;
+        }//EF
 
         public EmployeEntity(
             long companyId,

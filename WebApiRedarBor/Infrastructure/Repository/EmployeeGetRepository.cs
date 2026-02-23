@@ -21,7 +21,7 @@
 
         public async Task<IEnumerable<EmployeEntity>> GetAllAsync()
         {
-            var sql = "SELECT CompanyId, PortalId, RoleId, StatusId, Username, Email, Password, Name, Fax, Telephone FROM Employees WHERE IsDelete = 0";
+            var sql = "SELECT CompanyId, PortalId, RoleId, StatusId, Username, Email, Password, Name, Fax, Telephone FROM Employee WHERE IsDelete = 0 order by Id";
             var employeeDb = await _connection.QueryAsync<EmployeeDTO>(sql);
 
             if (employeeDb == null) return new List<EmployeEntity>();
