@@ -90,6 +90,11 @@
             IsDelete = true;
             DeletedOn = DateTime.Now;
         }
-        
+
+        public void SetLoginDate()
+        {
+            LastLogin = DateTime.Now;            
+        }
+
     }
 }

@@ -31,9 +31,9 @@
                                                                 e.PortalId,
                                                                 e.RoleId,
                                                                 e.StatusId,
-                                                                e.Username,
-                                                                e.Email,
-                                                                e.Password,
+                                                                e.Username ?? string.Empty,
+                                                                e.Email ?? string.Empty,
+                                                                e.Password ?? string.Empty,
                                                                 e.Name,
                                                                 e.Fax,
                                                                 e.Telephone
@@ -51,9 +51,9 @@
                                                 employeeDb.PortalId,
                                                 employeeDb.RoleId,
                                                 employeeDb.StatusId,
-                                                employeeDb.Username,
-                                                employeeDb.Email,
-                                                employeeDb.Password,
+                                                employeeDb.Username ?? string.Empty,
+                                                employeeDb.Email ?? string.Empty,
+                                                employeeDb.Password ?? string.Empty,
                                                 employeeDb.Name,
                                                 employeeDb.Fax,
                                                 employeeDb.Telephone,
@@ -78,9 +78,9 @@
                 employeeDb.PortalId,
                 employeeDb.RoleId,
                 employeeDb.StatusId,
-                employeeDb.Username,
-                employeeDb.Email,
-                employeeDb.Password,
+                employeeDb.Username ?? string.Empty,
+                employeeDb.Email ?? string.Empty,
+                employeeDb.Password ?? string.Empty,
                 employeeDb.Name,
                 employeeDb.Fax,
                 employeeDb.Telephone
@@ -99,13 +99,38 @@
                 employeeDb.PortalId,
                 employeeDb.RoleId,
                 employeeDb.StatusId,
-                employeeDb.Username,
-                employeeDb.Email,
-                employeeDb.Password,
+                employeeDb.Username ?? string.Empty,
+                employeeDb.Email ?? string.Empty,
+                employeeDb.Password ?? string.Empty,
                 employeeDb.Name,
                 employeeDb.Fax,
                 employeeDb.Telephone
             );
+        }
+
+        public async Task<EmployeEntity?> GetByUserPasswordAsync(string user, string psw)
+        {
+            var sql = "SELECT Id, CompanyId, PortalId, RoleId, StatusId, Username, Password, Email, Name, Telephone FROM Employee WHERE Username = @user AND Password = @psw AND StatusId = 1 AND IsDelete = 0";
+            var employeeDb = await _connection.QueryFirstOrDefaultAsync<EmployeeDTO>(sql, new { user = user, psw = psw });
+
+            if (employeeDb == null) return null;
+            var employee = new EmployeEntity(
+                                                employeeDb.CompanyId,
+                                                employeeDb.PortalId,
+                                                employeeDb.RoleId,
+                                                employeeDb.StatusId,
+                                                employeeDb.Username ?? string.Empty,
+                                                employeeDb.Email ?? string.Empty,
+                                                employeeDb.Password ?? string.Empty,
+                                                employeeDb.Name,
+                                                employeeDb.Fax,
+                                                employeeDb.Telephone,
+                                                employeeDb.CreatedOn,
+                                                employeeDb.UpdatedOn,
+                                                employeeDb.LastLogin
+                                            );
+            employee.SetId(employeeDb.Id);
+            return employee;
         }
     }
 }
