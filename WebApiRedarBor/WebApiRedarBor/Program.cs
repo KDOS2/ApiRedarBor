@@ -77,9 +77,7 @@ async Task<JsonWebKeySet> GetJwksAsync()
     };
 
     using var client = new HttpClient(handler);
-    var jwksJson = await client.GetStringAsync(
-        "https://localhost:7118/.well-known/openid-configuration/jwks");
-
+    var jwksJson = await client.GetStringAsync("https://localhost:7118/.well-known/openid-configuration/jwks");
     cachedJwks = new JsonWebKeySet(jwksJson);
     jwksCacheExpiration = DateTime.UtcNow.AddMinutes(5);
 
@@ -104,8 +102,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
         options.BackchannelHttpHandler = new HttpClientHandler
         {
-            ServerCertificateCustomValidationCallback =
-                HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+            ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
         };
 
         options.SaveToken = true;
@@ -124,7 +121,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
             ClockSkew = TimeSpan.FromMinutes(5),
             NameClaimType = "name",
-            RoleClaimType = "role",
             LogValidationExceptions = true,
 
             IssuerSigningKeyResolver = (token, securityToken, kid, parameters) =>
