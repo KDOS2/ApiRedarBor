@@ -24,7 +24,7 @@
             try
             {
                 var employees = await _repository.GetAllAsync();
-                var employeesResult = _mapper.Map<IEnumerable<EmployeeDto>>(employees);
+                var employeesResult = employees != null ? _mapper.Map<IEnumerable<EmployeeDto>>(employees) : null;
                 return employeesResult;
             }            
             catch (DomainException) {throw;}

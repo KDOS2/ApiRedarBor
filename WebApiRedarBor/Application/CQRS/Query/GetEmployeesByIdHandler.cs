@@ -24,7 +24,7 @@
             try
             {
                 var employees = await _repository.GetByIdAsync(request.Id);
-                var employeesResult = _mapper.Map<EmployeeDto>(employees);
+                var employeesResult = employees != null ? _mapper.Map<EmployeeDto>(employees) : null;
                 return employeesResult;
             }
             catch (DomainException) { throw; }
