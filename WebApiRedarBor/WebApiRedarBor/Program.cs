@@ -30,6 +30,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddSwaggerGen(options =>
 {
+    options.EnableAnnotations();
     options.SwaggerDoc("v1", new OpenApiInfo
     {
         Title = "Api RedarBor",

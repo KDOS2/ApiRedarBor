@@ -110,7 +110,7 @@
 
         public async Task<EmployeEntity?> GetByUserPasswordAsync(string user, string psw)
         {
-            var sql = "SELECT Id, CompanyId, PortalId, RoleId, StatusId, Username, Password, Email, Name, Telephone FROM Employee WHERE Username = @user AND Password = @psw AND StatusId = 1 AND IsDelete = 0";
+            var sql = "SELECT Id, CompanyId, PortalId, RoleId, StatusId, Username, Password, Email, Name, Telephone, CreatedOn, UpdatedOn  FROM Employee WHERE Username = @user AND Password = @psw AND StatusId = 1 AND IsDelete = 0";
             var employeeDb = await _connection.QueryFirstOrDefaultAsync<EmployeeDTO>(sql, new { user = user, psw = psw });
 
             if (employeeDb == null) return null;
